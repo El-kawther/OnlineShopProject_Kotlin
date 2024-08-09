@@ -2,17 +2,16 @@ package com.example.onlineshopkotlinproject.activity
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import com.example.onlineshopkotlinproject.Adapter.BrandAdapter
 import com.example.onlineshopkotlinproject.Model.SliderModel
-import com.example.onlineshopkotlinproject.R
-import com.example.onlineshopkotlinproject.SliderAdapter
+import com.example.onlineshopkotlinproject.Adapter.SliderAdapter
+import com.example.onlineshopkotlinproject.Model.BrandModel
 import com.example.onlineshopkotlinproject.ViewModel.MainViewModel
-import com.example.onlineshopkotlinproject.databinding.ActivityIntroBinding
 import com.example.onlineshopkotlinproject.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
@@ -24,6 +23,7 @@ class MainActivity : BaseActivity() {
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initBanner()
+        initBrand()
     }
 
     private fun initBanner() {
@@ -35,7 +35,7 @@ class MainActivity : BaseActivity() {
         viewModel.loadBanners()
     }
     private fun  banners(images:List<SliderModel>){
-        binding.viewPageSlider.adapter=SliderAdapter(images,binding.viewPageSlider)
+        binding.viewPageSlider.adapter= SliderAdapter(images,binding.viewPageSlider)
         binding.viewPageSlider.clipToPadding=false
         binding.viewPageSlider.clipChildren=false
         binding.viewPageSlider.offscreenPageLimit=3
@@ -52,5 +52,15 @@ class MainActivity : BaseActivity() {
             binding.dotIndicator.attachTo(binding.viewPageSlider)
         }
 
+    }
+    private fun initBrand(){
+        binding.progressBarBrand.visibility=View.VISIBLE
+        viewModel.brands.observe(this, Observer {
+            binding.viewBrand.layoutManager=LinearLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+            binding.viewBrand.adapter=BrandAdapter(it)
+            binding.progressBarBrand.visibility=View.GONE
+
+        })
+        viewModel.loadBrand()
     }
 }

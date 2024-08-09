@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+    kotlin("kapt")
+
 }
 
 android {
@@ -73,4 +75,10 @@ dependencies {
     implementation(libs.firebase.database)
     //
     implementation("com.tbuonomo:dotsindicator:5.0")
+    //
+    implementation( "com.github.bumptech.glide:glide:4.15.0")
+    kapt("com.github.bumptech.glide:compiler:4.15.0")
+
+
+
 }
