@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.onlineshopkotlinproject.Model.BrandModel
-import com.example.onlineshopkotlinproject.Model.ItemModel
+import com.example.onlineshopkotlinproject.Model.ItemsModel
 import com.example.onlineshopkotlinproject.Model.SliderModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,11 +16,11 @@ class MainViewModel (): ViewModel(){
 
     private val _banner = MutableLiveData<List<SliderModel>>()
     private val _brand = MutableLiveData<MutableList<BrandModel>>()
-    private val _popular = MutableLiveData<MutableList<ItemModel>>()
+    private val _popular = MutableLiveData<MutableList<ItemsModel>>()
 
     val brands:LiveData<MutableList<BrandModel>> = _brand
     val banners:LiveData<List<SliderModel>> = _banner
-    val popular:LiveData<MutableList<ItemModel>> = _popular
+    val popular:LiveData<MutableList<ItemsModel>> = _popular
 
     fun loadBanners(){
              val Ref=firebaseDatabase.getReference("Banner")
@@ -66,9 +66,9 @@ class MainViewModel (): ViewModel(){
         val Ref=firebaseDatabase.getReference("Items")
         Ref.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                val lists= mutableListOf<ItemModel>()
+                val lists= mutableListOf<ItemsModel>()
                 for (childSnapshot in snapshot.children){
-                    val list=childSnapshot.getValue(ItemModel::class.java)
+                    val list=childSnapshot.getValue(ItemsModel::class.java)
                     if(list!=null){
                         lists.add(list)
                     }
