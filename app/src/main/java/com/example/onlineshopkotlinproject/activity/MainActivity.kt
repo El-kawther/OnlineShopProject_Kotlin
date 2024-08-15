@@ -16,8 +16,12 @@ import com.example.onlineshopkotlinproject.Adapter.SliderAdapter
 import com.example.onlineshopkotlinproject.Model.BrandModel
 import com.example.onlineshopkotlinproject.ViewModel.MainViewModel
 import com.example.onlineshopkotlinproject.databinding.ActivityMainBinding
-
+/**
+ * MainActivity serves as the primary screen of the app, displaying banners, brand items,
+ * and popular products. It also handles navigation to other activities.
+ */
 class MainActivity : BaseActivity() {
+
     private  var viewModel= MainViewModel()
     private lateinit var binding: ActivityMainBinding
 
