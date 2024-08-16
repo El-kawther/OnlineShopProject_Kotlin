@@ -21,20 +21,31 @@ import com.example.onlineshopkotlinproject.databinding.ActivityMainBinding
  * and popular products. It also handles navigation to other activities.
  */
 class MainActivity : BaseActivity() {
-
+    // ViewModel instance for managing UI-related data in a lifecycle-conscious way
     private  var viewModel= MainViewModel()
-    private lateinit var binding: ActivityMainBinding
+    // View binding instance for efficient access to UI components
 
+    private lateinit var binding: ActivityMainBinding
+    /**
+     * Initializes the activity and sets up the view components by inflating the layout.
+     * Calls methods to initialize the banners, brand items, popular products, and bottom navigation menu.
+     *
+     * @param savedInstanceState A Bundle object containing the activity's previously saved state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initBanner()
-        initBrand()
-        initPopular()
-        initBottomMenu()
+        initBanner()// Initialize the banner slider
+        initBrand()// Initialize the brand section
+        initPopular() // Initialize the popular products section
+        initBottomMenu()// Initialize the bottom menu for navigation
     }
 
+    /**
+     * Sets up the bottom navigation menu, specifically the cart button.
+     * Navigates to CartActivity when the cart button is clicked.
+     */
     private fun initBottomMenu() {
         binding.cartBtn.setOnClickListener{
             startActivity(Intent(this@MainActivity,CartActivity::class.java))
@@ -42,13 +53,18 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initBanner() {
+        // Show progress bar while loading banners
         binding.progressBarBanner.visibility= View.VISIBLE
+        // Observe changes in banner data
         viewModel.banners.observe(this, Observer { items-> banners(items)
+            //Hide progress bar when data is loaded
             binding.progressBarBanner.visibility=View.GONE
 
         })
+        // Trigger loading of banners from the ViewModel
         viewModel.loadBanners()
     }
+    //method configures the banner slider UI component with a list of images.
     private fun  banners(images:List<SliderModel>){
         binding.viewPageSlider.adapter= SliderAdapter(images,binding.viewPageSlider)
         binding.viewPageSlider.clipToPadding=false
