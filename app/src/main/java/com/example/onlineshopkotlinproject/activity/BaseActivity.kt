@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 
-/* this activity enables full control over the screen's content by
+/** this activity enables full control over the screen's content by
   utilizing flags that allow the layout to extend into areas usually occupied
   by system UI elements like the status bar and navigation bar.
 

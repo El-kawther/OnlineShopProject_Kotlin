@@ -5,7 +5,9 @@ import android.os.Bundle
 import com.example.onlineshopkotlinproject.databinding.ActivityIntroBinding
 
 
-//  IntroActivity is an entry activity for the app where users are introduced to  welcome screen.
+/**
+ * IntroActivity is an entry activity for the app where users are introduced to  welcome screen.
+ */
 class IntroActivity : BaseActivity() {
 
     /* ActivityIntroBinding  is an automatically generated class by Android Studio

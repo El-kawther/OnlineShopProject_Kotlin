@@ -72,18 +72,24 @@ class MainActivity : BaseActivity() {
         binding.viewPageSlider.offscreenPageLimit=3
         binding.viewPageSlider.getChildAt(0).overScrollMode=RecyclerView.OVER_SCROLL_NEVER
 
-
+//Adds a margin between pages, in this case, 40 pixels. This helps to create
+// a space effect between pages when they are scrolled.
         val compositePageTransformer=CompositePageTransformer().apply {
             addTransformer(MarginPageTransformer(40))
 
         }
         binding.viewPageSlider.setPageTransformer(compositePageTransformer)
+        // Show dot indicator if there are multiple images
         if(images.size>1){
             binding.dotIndicator.visibility=View.VISIBLE
             binding.dotIndicator.attachTo(binding.viewPageSlider)
         }
 
     }
+    /**
+    * Sets up the brand section of the main screen.
+    * Observes changes in the brand data and updates the UI accordingly.
+    */
     private fun initBrand(){
         binding.progressBarBrand.visibility=View.VISIBLE
         viewModel.brands.observe(this, Observer {
@@ -94,6 +100,10 @@ class MainActivity : BaseActivity() {
         })
         viewModel.loadBrand()
     }
+    /**
+     * Sets up the popular products section of the main screen.
+     * Observes changes in the popular products data and updates the UI accordingly.
+     */
     private fun initPopular(){
         binding.progressBarPopular.visibility=View.VISIBLE
         viewModel.popular.observe(this, Observer {

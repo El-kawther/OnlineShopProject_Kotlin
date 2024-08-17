@@ -18,11 +18,28 @@ import com.example.onlineshopkotlinproject.R
  * within a ViewPager2. It handles image loading and view recycling for smooth scrolling.
  */
 //                    List of SliderModel objects representing the images. //  Reference to the ViewPager2 that will display the images.
-class SliderAdapter (private var sliderItems:List<SliderModel>,private val viewPage2: ViewPager2):RecyclerView.Adapter<SliderAdapter.SliderViewHolder>(){
+class SliderAdapter (private var sliderItems:List<SliderModel>,private val viewPage2: ViewPager2):
+    RecyclerView.Adapter<SliderAdapter.SliderViewHolder>(){
 
     // Context to be used for inflating layouts and loading images.
     private lateinit var context:Context
 
+    /**
+     * SliderViewHolder is a ViewHolder class for the SliderAdapter.
+     * It holds the view for each slider item and sets the image using Glide.
+     */
+
+    class SliderViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+        private val imageView: ImageView =itemView.findViewById(R.id.imageSlide)
+        fun setImage(sliderItems: SliderModel,context: Context){
+            val requestOption=RequestOptions().transform(CenterInside())
+            Glide.with(context)
+                .load(sliderItems.url)
+                .apply(requestOption)
+                .into(imageView)
+
+        }
+    }
     // Runnable task to reset and refresh the slider items when reaching the end of the list.
     private val runnable = Runnable {
         sliderItems=sliderItems  // Reassign the sliderItems list to itself.
@@ -58,20 +75,4 @@ class SliderAdapter (private var sliderItems:List<SliderModel>,private val viewP
      */
     override fun getItemCount(): Int = sliderItems.size
 
-    /**
-     * SliderViewHolder is a ViewHolder class for the SliderAdapter.
-     * It holds the view for each slider item and sets the image using Glide.
-     */
-
-    class SliderViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView =itemView.findViewById(R.id.imageSlide)
-        fun setImage(sliderItems: SliderModel,context: Context){
-            val requestOption=RequestOptions().transform(CenterInside())
-            Glide.with(context)
-                .load(sliderItems.url)
-                .apply(requestOption)
-                .into(imageView)
-
-        }
-    }
 }
